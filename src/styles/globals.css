@@ -1,0 +1,222 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #0a0a0a;
+  --foreground: #ededed;
+  --conic-position: from 0deg at 50% 50%;
+  
+  /* shadcn CSS variables - dark mode */
+  --card: 0 0% 3.9%;
+  --card-foreground: 0 0% 98%;
+  --popover: 0 0% 3.9%;
+  --popover-foreground: 0 0% 98%;
+  --primary: 221.2 83.2% 53.3%;
+  --primary-foreground: 210 40% 98%;
+  --secondary: 0 0% 14.9%;
+  --secondary-foreground: 0 0% 98%;
+  --muted: 0 0% 14.9%;
+  --muted-foreground: 0 0% 63.9%;
+  --accent: 0 0% 14.9%;
+  --accent-foreground: 0 0% 98%;
+  --destructive: 0 62.8% 30.6%;
+  --destructive-foreground: 0 0% 98%;
+  --border: 0 0% 14.9%;
+  --input: 0 0% 14.9%;
+  --ring: 221.2 83.2% 53.3%;
+  --radius: 0.5rem;
+  
+  /* Ripple button variables */
+  --button-ripple-color: rgba(0, 0, 0, 0.1);
+}
+
+.dark {
+  --button-ripple-color: rgba(255, 255, 255, 0.2);
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  
+  .animate-gradient {
+    background-size: 200% 200%;
+    animation: gradient 3s ease infinite;
+  }
+  
+  @keyframes gradient {
+    0%, 100% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+  }
+  
+  .glass-effect {
+    background: rgba(17, 24, 39, 0.7);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  
+  .glow-blue {
+    box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
+  }
+  
+  .glow-purple {
+    box-shadow: 0 0 20px rgba(139, 92, 246, 0.3);
+  }
+  
+  /* Glass Card Effect - From Uiverse.io by joe-watson-sbf */
+  .glass-card-container {
+    color: white;
+    position: relative;
+    font-family: sans-serif;
+  }
+  
+  .glass-card-container::before,
+  .glass-card-container::after {
+    content: "";
+    background-color: #fab5704c;
+    position: absolute;
+  }
+  
+  .glass-card-container::before {
+    border-radius: 50%;
+    width: 6rem;
+    height: 6rem;
+    top: 30%;
+    right: 7%;
+  }
+  
+  .glass-card-container::after {
+    content: "";
+    position: absolute;
+    height: 3rem;
+    top: 8%;
+    right: 8%;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    z-index: 10;
+  }
+  
+  .glass-card-box {
+    width: 11.875em;
+    height: 15.875em;
+    padding: 1rem;
+    background-color: rgba(255, 255, 255, 0.074);
+    border: 1px solid rgba(255, 255, 255, 0.222);
+    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px);
+    border-radius: 0.7rem;
+    transition: all ease 0.3s;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  
+  .glass-card-title {
+    font-size: 2rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+  }
+  
+  .glass-card-box div strong {
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+  
+  .glass-card-box div p {
+    margin: 0;
+    font-size: 0.9em;
+    font-weight: 300;
+    letter-spacing: 0.1em;
+  }
+  
+  .glass-card-box div span {
+    font-size: 0.7rem;
+    font-weight: 300;
+  }
+  
+  .glass-card-box div span:nth-child(3) {
+    font-weight: 500;
+    margin-right: 0.2rem;
+  }
+  
+  .glass-card-box:hover {
+    box-shadow: 0px 0px 20px 1px #ffbb763f;
+    border: 1px solid rgba(255, 255, 255, 0.454);
+  }
+  
+  /* Override for feature cards */
+  .glass-card-container.feature-card .glass-card-box {
+    width: 100%;
+    min-height: 15.875em;
+  }
+  
+  /* Override for pricing cards */
+  .glass-card-container.pricing-card {
+    width: 100%;
+    min-height: 600px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background-color: rgba(17, 24, 39, 0.6);
+    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px);
+  }
+  
+  .glass-card-container.pricing-card .glass-card-box {
+    width: 100%;
+    height: 100%;
+    min-height: 600px;
+    padding: 1.5rem;
+    padding-right: 2.5rem;
+    background-color: rgba(255, 255, 255, 0.05);
+    border: none;
+    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px);
+    overflow: visible;
+    position: relative;
+  }
+  
+  .glass-card-container.pricing-card .glass-card-box::after {
+    content: "";
+    position: absolute;
+    right: 1rem;
+    top: 10%;
+    bottom: 30%;
+    width: 1px;
+    background-color: rgba(255, 255, 255, 0.3);
+    z-index: 1;
+  }
+  
+  .glass-card-container.pricing-card .glass-card-box.pt-10 {
+    min-height: 650px;
+  }
+  
+  .glass-card-container.pricing-card::after {
+    display: none;
+  }
+  
+  .glass-card-container.pricing-card::before {
+    display: none;
+  }
+  
+  .glass-card-container.pricing-card .glass-card-box:hover {
+    background-color: rgba(255, 255, 255, 0.08);
+  }
+}
