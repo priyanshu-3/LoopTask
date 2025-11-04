@@ -2,9 +2,8 @@
 
 import { motion } from 'framer-motion';
 import { useState } from 'react';
-import Card from '@/components/Card';
+import { LiquidGlassCard } from "@/components/ui/liquid-weather-glass";
 import Button from '@/components/Button';
-import Sidebar from '@/components/Sidebar';
 import DashboardAuth from '../../components/DashboardAuth';
 import { 
   Trophy,
@@ -112,10 +111,9 @@ export default function LeaderboardPage() {
 
   return (
     <DashboardAuth>
-      <div className="flex">
-        <Sidebar />
+      <div className="p-4 md:p-8">
         
-        <main className="flex-1 p-8 bg-gray-950">
+        <main className="max-w-7xl mx-auto">
           <div className="max-w-7xl mx-auto">
             {/* Header */}
             <motion.div
@@ -158,7 +156,7 @@ export default function LeaderboardPage() {
               transition={{ delay: 0.2 }}
               className="mb-12"
             >
-              <Card className="bg-gradient-to-br from-gray-800 to-gray-900">
+              <LiquidGlassCard shadowIntensity="xs" borderRadius="16px" glowIntensity="sm" className="p-6 bg-white/5 bg-gradient-to-br from-gray-800 to-gray-900">
                 <div className="flex items-end justify-center space-x-8 py-8">
                   {/* 2nd Place */}
                   {leaderboardData[1] && (
@@ -220,7 +218,7 @@ export default function LeaderboardPage() {
                     </motion.div>
                   )}
                 </div>
-              </Card>
+              </LiquidGlassCard>
             </motion.div>
 
             {/* Full Leaderboard */}
@@ -239,7 +237,7 @@ export default function LeaderboardPage() {
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 0.7 + index * 0.05 }}
                   >
-                    <Card hover className={`${index < 3 ? 'ring-2 ring-blue-500/20' : ''}`}>
+                    <LiquidGlassCard shadowIntensity="xs" borderRadius="16px" glowIntensity="sm" className={`p-6 bg-white/5 ${index < 3 ? 'ring-2 ring-blue-500/20' : ''}`}>
                       <div className="flex items-center justify-between">
                         {/* Rank & Avatar */}
                         <div className="flex items-center space-x-6">
@@ -312,7 +310,7 @@ export default function LeaderboardPage() {
                           </div>
                         </div>
                       </div>
-                    </Card>
+                    </LiquidGlassCard>
                   </motion.div>
                 ))}
               </div>
@@ -341,14 +339,14 @@ export default function LeaderboardPage() {
                       animate={{ opacity: 1, scale: 1 }}
                       transition={{ delay: 1.3 + index * 0.1 }}
                     >
-                      <Card hover className="text-center">
+                      <LiquidGlassCard shadowIntensity="xs" borderRadius="16px" glowIntensity="sm" className="p-6 bg-white/5 text-center">
                         <div className={`w-16 h-16 mx-auto mb-4 rounded-full bg-${achievement.color}-500/10 flex items-center justify-center`}>
                           <Icon className={`w-8 h-8 text-${achievement.color}-500`} />
                         </div>
                         <h3 className="font-bold text-lg mb-2">{achievement.title}</h3>
                         <p className="text-gray-400 mb-1">{achievement.winner}</p>
                         <p className={`text-2xl font-bold text-${achievement.color}-500`}>{achievement.value}</p>
-                      </Card>
+                      </LiquidGlassCard>
                     </motion.div>
                   );
                 })}

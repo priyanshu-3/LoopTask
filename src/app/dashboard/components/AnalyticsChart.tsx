@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import Card from '@/components/Card';
+import { LiquidGlassCard } from '@/components/ui/liquid-weather-glass';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import { ChartSkeleton } from '@/components/features/LoadingState';
 
@@ -38,30 +38,41 @@ export default function AnalyticsChart() {
 
   if (data.length === 0) {
     return (
-      <Card>
-        <div className="h-64 flex items-center justify-center text-gray-400">
+      <LiquidGlassCard 
+        shadowIntensity='xs'
+        borderRadius='16px'
+        glowIntensity='sm'
+        className="p-6 bg-white/5"
+      >
+        <div className="h-64 flex items-center justify-center text-gray-300">
           <div className="text-center">
             <p className="mb-2">No data available</p>
             <p className="text-sm">Sync your GitHub data to see analytics</p>
           </div>
         </div>
-      </Card>
+      </LiquidGlassCard>
     );
   }
 
   return (
-    <Card>
+    <LiquidGlassCard 
+      shadowIntensity='xs'
+      borderRadius='16px'
+      glowIntensity='sm'
+      className="p-6 bg-white/5"
+    >
       <div className="h-64">
         <ResponsiveContainer width="100%" height="100%">
           <BarChart data={data}>
-            <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
-            <XAxis dataKey="day" stroke="#9CA3AF" />
-            <YAxis stroke="#9CA3AF" />
+            <CartesianGrid strokeDasharray="3 3" stroke="#ffffff20" />
+            <XAxis dataKey="day" stroke="#e5e7eb" />
+            <YAxis stroke="#e5e7eb" />
             <Tooltip
               contentStyle={{
-                backgroundColor: '#1F2937',
-                border: '1px solid #374151',
+                backgroundColor: 'rgba(17, 24, 39, 0.9)',
+                border: '1px solid rgba(255, 255, 255, 0.2)',
                 borderRadius: '8px',
+                backdropFilter: 'blur(12px)',
               }}
             />
             <Bar dataKey="commits" fill="#3B82F6" name="Commits" />
@@ -72,14 +83,14 @@ export default function AnalyticsChart() {
       
       <div className="mt-4 grid grid-cols-2 gap-4">
         <div className="text-center">
-          <p className="text-2xl font-bold text-blue-500">{totals.commits}</p>
-          <p className="text-sm text-gray-400">Total Commits</p>
+          <p className="text-2xl font-bold text-blue-400">{totals.commits}</p>
+          <p className="text-sm text-gray-300">Total Commits</p>
         </div>
         <div className="text-center">
-          <p className="text-2xl font-bold text-purple-500">{totals.prs}</p>
-          <p className="text-sm text-gray-400">Pull Requests</p>
+          <p className="text-2xl font-bold text-purple-400">{totals.prs}</p>
+          <p className="text-sm text-gray-300">Pull Requests</p>
         </div>
       </div>
-    </Card>
+    </LiquidGlassCard>
   );
 }

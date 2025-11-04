@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import Card from '@/components/Card';
+import { LiquidGlassCard } from "@/components/ui/liquid-weather-glass";
 import Badge from '@/components/Badge';
 import Button from '@/components/Button';
 import Skeleton from '@/components/Skeleton';
@@ -110,9 +110,9 @@ export default function MonitoringPage() {
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {[1, 2, 3].map((i) => (
-            <Card key={i}>
+            <LiquidGlassCard key={i} shadowIntensity="xs" borderRadius="16px" glowIntensity="sm" className="p-6 bg-white/5">
               <Skeleton className="h-32" />
-            </Card>
+            </LiquidGlassCard>
           ))}
         </div>
       </div>
@@ -122,13 +122,13 @@ export default function MonitoringPage() {
   if (error) {
     return (
       <div className="p-6">
-        <Card>
+        <LiquidGlassCard shadowIntensity="xs" borderRadius="16px" glowIntensity="sm" className="p-6 bg-white/5">
           <div className="text-center py-8">
             <p className="text-red-400 mb-4">Failed to load monitoring data</p>
             <p className="text-gray-400 mb-4">{error}</p>
             <Button onClick={fetchMonitoringData}>Retry</Button>
           </div>
-        </Card>
+        </LiquidGlassCard>
       </div>
     );
   }
@@ -169,7 +169,7 @@ export default function MonitoringPage() {
           <h2 className="text-xl font-semibold">Active Alerts</h2>
           <div className="space-y-2">
             {data.alerts.map((alert, index) => (
-              <Card key={index} className="border-l-4 border-red-500">
+              <LiquidGlassCard key={index} shadowIntensity="xs" borderRadius="16px" glowIntensity="sm" className="p-6 bg-white/5 border-l-4 border-red-500">
                 <div className="flex items-start justify-between">
                   <div>
                     <div className="flex items-center gap-2 mb-2">
@@ -184,7 +184,7 @@ export default function MonitoringPage() {
                     </p>
                   </div>
                 </div>
-              </Card>
+              </LiquidGlassCard>
             ))}
           </div>
         </div>
@@ -195,7 +195,7 @@ export default function MonitoringPage() {
         <h2 className="text-xl font-semibold">Job Statistics</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {data.stats.map((stat) => (
-            <Card key={stat.jobName}>
+            <LiquidGlassCard key={stat.jobName} shadowIntensity="xs" borderRadius="16px" glowIntensity="sm" className="p-6 bg-white/5">
               <div className="space-y-4">
                 <div className="flex items-center justify-between">
                   <h3 className="font-semibold text-lg">{stat.jobName}</h3>
@@ -254,7 +254,7 @@ export default function MonitoringPage() {
                   </div>
                 )}
               </div>
-            </Card>
+            </LiquidGlassCard>
           ))}
         </div>
       </div>
@@ -263,7 +263,7 @@ export default function MonitoringPage() {
       <div className="space-y-4">
         <h2 className="text-xl font-semibold">Recent Executions</h2>
         {Object.entries(data.recentExecutions).map(([jobName, executions]) => (
-          <Card key={jobName}>
+          <LiquidGlassCard key={jobName} shadowIntensity="xs" borderRadius="16px" glowIntensity="sm" className="p-6 bg-white/5">
             <h3 className="font-semibold text-lg mb-4">{jobName}</h3>
             <div className="space-y-2">
               {executions.map((execution) => (
@@ -306,17 +306,17 @@ export default function MonitoringPage() {
                 </div>
               ))}
             </div>
-          </Card>
+          </LiquidGlassCard>
         ))}
       </div>
 
       {/* Empty State */}
       {data.stats.length === 0 && (
-        <Card>
+        <LiquidGlassCard shadowIntensity="xs" borderRadius="16px" glowIntensity="sm" className="p-6 bg-white/5">
           <div className="text-center py-8">
             <p className="text-gray-400">No cron job executions found in the selected time range</p>
           </div>
-        </Card>
+        </LiquidGlassCard>
       )}
     </div>
   );

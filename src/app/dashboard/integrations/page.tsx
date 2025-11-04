@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 import { Zap, AlertCircle, CheckCircle2, AlertTriangle, RefreshCw, Clock, TrendingUp, Activity, BarChart3, Bell } from 'lucide-react';
 import IntegrationCard, { IntegrationProvider } from '@/components/integrations/IntegrationCard';
 import Skeleton, { CardSkeleton } from '@/components/Skeleton';
+import { LiquidGlassCard } from '@/components/ui/liquid-weather-glass';
 import { useToast } from '@/components/Toast';
 import Button from '@/components/Button';
 import { PieChart, Pie, Cell, ResponsiveContainer, Legend, Tooltip } from 'recharts';
@@ -304,7 +305,7 @@ export default function IntegrationsPage() {
   };
 
   return (
-    <div className="min-h-screen bg-black text-white p-8">
+    <div className="p-4 md:p-8 text-white">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <motion.div
@@ -424,7 +425,7 @@ export default function IntegrationsPage() {
 
             {/* Activity Distribution Chart */}
             {chartData.length > 0 && (
-              <div className="bg-gray-900 border border-gray-800 rounded-xl p-6">
+              <LiquidGlassCard shadowIntensity="xs" borderRadius="16px" glowIntensity="sm" className="p-6 bg-white/5">
                 <h3 className="text-lg font-semibold text-white mb-4">Activity Distribution</h3>
                 <div className="h-64">
                   <ResponsiveContainer width="100%" height="100%">
@@ -459,7 +460,7 @@ export default function IntegrationsPage() {
                     </PieChart>
                   </ResponsiveContainer>
                 </div>
-              </div>
+              </LiquidGlassCard>
             )}
           </motion.div>
         )}
@@ -602,13 +603,15 @@ export default function IntegrationsPage() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.3 }}
-            className="mt-8 p-6 bg-gray-900 border border-gray-800 rounded-xl"
+            className="mt-8"
           >
-            <div className="flex items-center space-x-2 mb-4">
-              <Bell className="w-5 h-5 text-blue-500" />
-              <h3 className="text-lg font-semibold text-white">Notifications</h3>
-            </div>
-            <NotificationList />
+            <LiquidGlassCard shadowIntensity="xs" borderRadius="16px" glowIntensity="sm" className="p-6 bg-white/5">
+              <div className="flex items-center space-x-2 mb-4">
+                <Bell className="w-5 h-5 text-blue-500" />
+                <h3 className="text-lg font-semibold text-white">Notifications</h3>
+              </div>
+              <NotificationList />
+            </LiquidGlassCard>
           </motion.div>
         )}
 
@@ -617,27 +620,29 @@ export default function IntegrationsPage() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.4 }}
-          className="mt-8 p-6 bg-gray-900 border border-gray-800 rounded-xl"
+          className="mt-8"
         >
-          <h3 className="text-lg font-semibold text-white mb-2">Getting Started</h3>
-          <ul className="space-y-2 text-gray-400">
-            <li className="flex items-start space-x-2">
-              <span className="text-blue-500 mt-1">•</span>
-              <span>Click "Connect" on any integration to authorize DevTrack to access your data</span>
-            </li>
-            <li className="flex items-start space-x-2">
-              <span className="text-blue-500 mt-1">•</span>
-              <span>Once connected, data will sync automatically every 15-30 minutes</span>
-            </li>
-            <li className="flex items-start space-x-2">
-              <span className="text-blue-500 mt-1">•</span>
-              <span>Use "Sync Now" to manually fetch the latest data at any time</span>
-            </li>
-            <li className="flex items-start space-x-2">
-              <span className="text-blue-500 mt-1">•</span>
-              <span>Your data is encrypted and secure - we only store what's necessary for analytics</span>
-            </li>
-          </ul>
+          <LiquidGlassCard shadowIntensity="xs" borderRadius="16px" glowIntensity="sm" className="p-6 bg-white/5">
+            <h3 className="text-lg font-semibold text-white mb-2">Getting Started</h3>
+            <ul className="space-y-2 text-gray-400">
+              <li className="flex items-start space-x-2">
+                <span className="text-blue-500 mt-1">•</span>
+                <span>Click "Connect" on any integration to authorize DevTrack to access your data</span>
+              </li>
+              <li className="flex items-start space-x-2">
+                <span className="text-blue-500 mt-1">•</span>
+                <span>Once connected, data will sync automatically every 15-30 minutes</span>
+              </li>
+              <li className="flex items-start space-x-2">
+                <span className="text-blue-500 mt-1">•</span>
+                <span>Use "Sync Now" to manually fetch the latest data at any time</span>
+              </li>
+              <li className="flex items-start space-x-2">
+                <span className="text-blue-500 mt-1">•</span>
+                <span>Your data is encrypted and secure - we only store what's necessary for analytics</span>
+              </li>
+            </ul>
+          </LiquidGlassCard>
         </motion.div>
       </div>
     </div>

@@ -2,8 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { useState, useEffect } from 'react';
-import Card from '@/components/Card';
-import Sidebar from '@/components/Sidebar';
+import { LiquidGlassCard } from "@/components/ui/liquid-weather-glass";
 import DashboardAuth from '../components/DashboardAuth';
 import { 
   Brain,
@@ -109,9 +108,8 @@ export default function InsightsPage() {
   if (loading) {
     return (
       <DashboardAuth>
-        <div className="flex">
-          <Sidebar />
-          <main className="flex-1 p-8 bg-gray-950 flex items-center justify-center">
+        <div className="p-4 md:p-8">
+          <main className="max-w-7xl mx-auto flex items-center justify-center min-h-[60vh]">
             <div className="text-center">
               <Brain className="w-16 h-16 mx-auto mb-4 text-purple-500 animate-pulse" />
               <p className="text-gray-400">Analyzing your data with AI...</p>
@@ -124,10 +122,9 @@ export default function InsightsPage() {
 
   return (
     <DashboardAuth>
-      <div className="flex">
-        <Sidebar />
+      <div className="p-4 md:p-8">
         
-        <main className="flex-1 p-8 bg-gray-950">
+        <main className="max-w-7xl mx-auto">
           <div className="max-w-7xl mx-auto">
             {/* Header */}
             <motion.div
@@ -152,7 +149,7 @@ export default function InsightsPage() {
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.1 }}
               >
-                <Card className="relative overflow-hidden">
+                <LiquidGlassCard shadowIntensity="xs" borderRadius="16px" glowIntensity="sm" className="p-6 bg-white/5 relative overflow-hidden">
                   <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-green-500/20 to-transparent rounded-full blur-3xl" />
                   
                   <div className="relative">
@@ -176,7 +173,7 @@ export default function InsightsPage() {
                       </div>
                     </div>
                   </div>
-                </Card>
+                </LiquidGlassCard>
               </motion.div>
 
               {/* Burnout Risk */}
@@ -185,7 +182,7 @@ export default function InsightsPage() {
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.2 }}
               >
-                <Card className="relative overflow-hidden">
+                <LiquidGlassCard shadowIntensity="xs" borderRadius="16px" glowIntensity="sm" className="p-6 bg-white/5 relative overflow-hidden">
                   <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-blue-500/20 to-transparent rounded-full blur-3xl" />
                   
                   <div className="relative">
@@ -219,7 +216,7 @@ export default function InsightsPage() {
                       ))}
                     </div>
                   </div>
-                </Card>
+                </LiquidGlassCard>
               </motion.div>
             </div>
 
@@ -245,7 +242,7 @@ export default function InsightsPage() {
                       animate={{ opacity: 1, scale: 1 }}
                       transition={{ delay: 0.4 + index * 0.1 }}
                     >
-                      <Card hover className="h-full">
+                      <LiquidGlassCard shadowIntensity="xs" borderRadius="16px" glowIntensity="sm" className="p-6 bg-white/5 h-full">
                         <div className={`w-12 h-12 rounded-xl bg-${pattern.color}-500/10 flex items-center justify-center mb-4`}>
                           <Icon className={`w-6 h-6 text-${pattern.color}-500`} />
                         </div>
@@ -254,7 +251,7 @@ export default function InsightsPage() {
                         <div className={`text-xs px-3 py-1 bg-${pattern.color}-500/10 text-${pattern.color}-500 rounded-full inline-block`}>
                           {pattern.action}
                         </div>
-                      </Card>
+                      </LiquidGlassCard>
                     </motion.div>
                   );
                 })}
@@ -281,7 +278,7 @@ export default function InsightsPage() {
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 0.8 + index * 0.1 }}
                   >
-                    <Card hover>
+                    <LiquidGlassCard shadowIntensity="xs" borderRadius="16px" glowIntensity="sm" className="p-6 bg-white/5">
                       <div className="flex items-start justify-between">
                         <div className="flex-1">
                           <div className="flex items-center space-x-3 mb-2">
@@ -303,7 +300,7 @@ export default function InsightsPage() {
                           </div>
                         </div>
                       </div>
-                    </Card>
+                    </LiquidGlassCard>
                   </motion.div>
                 ))}
               </div>
@@ -321,7 +318,7 @@ export default function InsightsPage() {
               </h2>
               
               <div className="grid md:grid-cols-2 gap-6">
-                <Card>
+                <LiquidGlassCard shadowIntensity="xs" borderRadius="16px" glowIntensity="sm" className="p-6 bg-white/5">
                   <h3 className="font-bold mb-4 flex items-center space-x-2">
                     <Calendar className="w-5 h-5 text-blue-500" />
                     <span>This Week Forecast</span>
@@ -346,9 +343,9 @@ export default function InsightsPage() {
                       </div>
                     </div>
                   </div>
-                </Card>
+                </LiquidGlassCard>
 
-                <Card>
+                <LiquidGlassCard shadowIntensity="xs" borderRadius="16px" glowIntensity="sm" className="p-6 bg-white/5">
                   <h3 className="font-bold mb-4 flex items-center space-x-2">
                     <Zap className="w-5 h-5 text-orange-500" />
                     <span>Next Sprint Outlook</span>
@@ -369,7 +366,7 @@ export default function InsightsPage() {
                       <span className="font-bold text-green-500">{insights.predictions.nextSprint.completion}%</span>
                     </div>
                   </div>
-                </Card>
+                </LiquidGlassCard>
               </div>
             </motion.div>
           </div>

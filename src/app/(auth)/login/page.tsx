@@ -10,7 +10,7 @@ export default function LoginPage() {
   return (
     <WavyBackground 
       containerClassName="min-h-screen relative w-full"
-      className="w-full flex items-center justify-center px-4"
+      className="w-full min-h-screen flex items-center justify-center px-4"
     >
       <motion.div
         initial={{ opacity: 0, scale: 0.9 }}

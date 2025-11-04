@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import Card from '@/components/Card';
+import { LiquidGlassCard } from '@/components/ui/liquid-weather-glass';
 import Badge from '@/components/Badge';
 import { GitCommit, GitPullRequest, Calendar, RefreshCw, Github, MessageSquare, FileText, CalendarDays, Filter } from 'lucide-react';
 import { getRelativeTime } from '@/utils/formatDate';
@@ -53,7 +53,6 @@ interface ActivityFeedProps {
 export default function ActivityFeed({ selectedSource, onSourceChange, integrations }: ActivityFeedProps) {
   const [activities, setActivities] = useState<Activity[]>([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     fetchActivities();
@@ -62,7 +61,6 @@ export default function ActivityFeed({ selectedSource, onSourceChange, integrati
   const fetchActivities = async () => {
     try {
       setLoading(true);
-      setError(null);
       
       let url = '/api/activities?limit=20';
       if (selectedSource) {
@@ -72,14 +70,24 @@ export default function ActivityFeed({ selectedSource, onSourceChange, integrati
       const response = await fetch(url);
       
       if (!response.ok) {
-        throw new Error('Failed to fetch activities');
+        // Handle 401 Unauthorized silently - user not logged in
+        if (response.status === 401) {
+          setActivities([]);
+          setLoading(false);
+          return;
+        }
+        
+        // Handle other errors
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(errorData.error || 'Failed to fetch activities');
       }
 
       const data = await response.json();
       setActivities(data.activities || []);
     } catch (err) {
       console.error('Error fetching activities:', err);
-      setError('Failed to load activities');
+      // Don't show error for network or auth issues, just show empty state
+      setActivities([]);
     } finally {
       setLoading(false);
     }
@@ -111,30 +119,18 @@ export default function ActivityFeed({ selectedSource, onSourceChange, integrati
     return <TableSkeleton rows={5} />;
   }
 
-  if (error) {
-    return (
-      <Card>
-        <div className="text-center py-8">
-          <p className="text-red-400 mb-4">{error}</p>
-          <button
-            onClick={fetchActivities}
-            className="text-blue-400 hover:text-blue-300 flex items-center justify-center space-x-2 mx-auto"
-          >
-            <RefreshCw className="w-4 h-4" />
-            <span>Retry</span>
-          </button>
-        </div>
-      </Card>
-    );
-  }
-
   return (
-    <Card>
+    <LiquidGlassCard 
+      shadowIntensity='xs'
+      borderRadius='16px'
+      glowIntensity='sm'
+      className="p-6 bg-white/5"
+    >
       {/* Source Filter */}
-      <div className="mb-4 pb-4 border-b border-gray-700">
+      <div className="mb-4 pb-4 border-b border-white/10">
         <div className="flex items-center space-x-2 mb-2">
-          <Filter className="w-4 h-4 text-gray-400" />
-          <span className="text-sm text-gray-400">Filter by source:</span>
+          <Filter className="w-4 h-4 text-gray-300" />
+          <span className="text-sm text-gray-300">Filter by source:</span>
         </div>
         <div className="flex flex-wrap gap-2">
           <button
@@ -222,7 +218,7 @@ export default function ActivityFeed({ selectedSource, onSourceChange, integrati
             const color = activityColors[activity.type as keyof typeof activityColors] || 'text-gray-500';
 
             return (
-              <div key={activity.id} className="flex items-start space-x-3 pb-4 border-b border-gray-700 last:border-0">
+              <div key={activity.id} className="flex items-start space-x-3 pb-4 border-b border-white/10 last:border-0">
                 <Icon className={`w-5 h-5 mt-1 ${color}`} />
                 <div className="flex-1">
                   <div className="flex items-start justify-between gap-2">
@@ -256,6 +252,6 @@ export default function ActivityFeed({ selectedSource, onSourceChange, integrati
           })
         )}
       </div>
-    </Card>
+    </LiquidGlassCard>
   );
 }

@@ -41,8 +41,8 @@ DashboardAuth.Header = function DashboardHeader() {
   
   return (
     <div className="mb-8">
-      <h1 className="text-3xl font-bold mb-2">Welcome back, {session?.user?.name || 'Developer'}!</h1>
-      <p className="text-gray-400">Here's your productivity overview</p>
+      <h1 className="text-3xl font-bold mb-2 text-white">Welcome back, {session?.user?.name || 'Developer'}!</h1>
+      <p className="text-gray-300">Here's your productivity overview</p>
     </div>
   );
 };

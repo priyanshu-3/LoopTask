@@ -2,9 +2,8 @@
 
 import { motion } from 'framer-motion';
 import { useState } from 'react';
-import Card from '@/components/Card';
+import { LiquidGlassCard } from "@/components/ui/liquid-weather-glass";
 import Button from '@/components/Button';
-import Sidebar from '@/components/Sidebar';
 import DashboardAuth from '../components/DashboardAuth';
 import { 
   Zap, 
@@ -83,10 +82,9 @@ export default function AutomationsPage() {
 
   return (
     <DashboardAuth>
-      <div className="flex">
-        <Sidebar />
+      <div className="p-4 md:p-8">
         
-        <main className="flex-1 p-8 bg-gray-950">
+        <main className="max-w-7xl mx-auto">
           <div className="max-w-7xl mx-auto">
             {/* Header */}
             <motion.div
@@ -121,10 +119,10 @@ export default function AutomationsPage() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: index * 0.1 }}
                 >
-                  <Card>
+                  <LiquidGlassCard shadowIntensity="xs" borderRadius="16px" glowIntensity="sm" className="p-6 bg-white/5">
                     <p className={`text-3xl font-bold ${stat.textColor} mb-1`}>{stat.value}</p>
                     <p className="text-sm text-gray-400">{stat.label}</p>
-                  </Card>
+                  </LiquidGlassCard>
                 </motion.div>
               ))}
             </div>
@@ -141,7 +139,7 @@ export default function AutomationsPage() {
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: index * 0.1 }}
                   >
-                    <Card hover className="group">
+                    <LiquidGlassCard shadowIntensity="xs" borderRadius="16px" glowIntensity="sm" className="p-6 bg-white/5 group">
                       <div className="flex items-start justify-between">
                         <div className="flex items-start space-x-4 flex-1">
                           {/* Icon */}
@@ -235,7 +233,7 @@ export default function AutomationsPage() {
                           </button>
                         </div>
                       </div>
-                    </Card>
+                    </LiquidGlassCard>
                   </motion.div>
                 );
               })}
@@ -248,7 +246,7 @@ export default function AutomationsPage() {
               transition={{ delay: 0.5 }}
               className="mt-8"
             >
-              <Card className="text-center py-12 border-2 border-dashed border-gray-700 hover:border-blue-500 transition-colors cursor-pointer group">
+              <LiquidGlassCard shadowIntensity="xs" borderRadius="16px" glowIntensity="sm" className="p-6 bg-white/5 text-center py-12 border-2 border-dashed border-gray-700 hover:border-blue-500 transition-colors cursor-pointer group">
                 <div className="flex flex-col items-center space-y-4">
                   <div className="w-16 h-16 rounded-full bg-blue-500/10 flex items-center justify-center group-hover:scale-110 transition-transform">
                     <Plus className="w-8 h-8 text-blue-500" />
@@ -258,7 +256,7 @@ export default function AutomationsPage() {
                     <p className="text-gray-400">Set up a custom workflow to automate your tasks</p>
                   </div>
                 </div>
-              </Card>
+              </LiquidGlassCard>
             </motion.div>
           </div>
         </main>

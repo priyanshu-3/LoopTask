@@ -2,8 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { useState } from 'react';
-import Card from '@/components/Card';
-import Sidebar from '@/components/Sidebar';
+import { LiquidGlassCard } from "@/components/ui/liquid-weather-glass";
 import DashboardAuth from '../components/DashboardAuth';
 import { 
   GitCommit, 
@@ -104,10 +103,9 @@ export default function ActivityPage() {
 
   return (
     <DashboardAuth>
-      <div className="flex">
-        <Sidebar />
+      <div className="p-4 md:p-8">
         
-        <main className="flex-1 p-8 bg-gray-950">
+        <main className="max-w-7xl mx-auto">
           <div className="max-w-7xl mx-auto">
             {/* Header */}
             <motion.div
@@ -128,7 +126,7 @@ export default function ActivityPage() {
               transition={{ delay: 0.1 }}
               className="mb-6"
             >
-              <Card>
+              <LiquidGlassCard shadowIntensity="xs" borderRadius="16px" glowIntensity="sm" className="p-6 bg-white/5">
                 <div className="flex flex-col md:flex-row md:items-center md:justify-between space-y-4 md:space-y-0">
                   {/* Search */}
                   <div className="relative flex-1 max-w-md">
@@ -165,17 +163,17 @@ export default function ActivityPage() {
                     ))}
                   </div>
                 </div>
-              </Card>
+              </LiquidGlassCard>
             </motion.div>
 
             {/* Activity List */}
             <div className="space-y-4">
               {filteredActivities.length === 0 ? (
-                <Card>
+                <LiquidGlassCard shadowIntensity="xs" borderRadius="16px" glowIntensity="sm" className="p-6 bg-white/5">
                   <div className="text-center py-12">
                     <p className="text-gray-400">No activities found</p>
                   </div>
-                </Card>
+                </LiquidGlassCard>
               ) : (
                 filteredActivities.map((activity, index) => {
                   const Icon = activityIcons[activity.type];
@@ -189,7 +187,7 @@ export default function ActivityPage() {
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: index * 0.05 }}
                     >
-                      <Card hover className="group cursor-pointer">
+                      <LiquidGlassCard shadowIntensity="xs" borderRadius="16px" glowIntensity="sm" className="p-6 bg-white/5 group cursor-pointer">
                         <div className="flex items-start space-x-4">
                           {/* Icon */}
                           <div className={`w-12 h-12 rounded-xl ${color.bg} flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform`}>
@@ -224,7 +222,7 @@ export default function ActivityPage() {
                             </div>
                           </div>
                         </div>
-                      </Card>
+                      </LiquidGlassCard>
                     </motion.div>
                   );
                 })

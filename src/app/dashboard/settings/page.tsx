@@ -3,9 +3,8 @@
 import { motion } from 'framer-motion';
 import { useState } from 'react';
 import { useSession } from 'next-auth/react';
-import Card from '@/components/Card';
+import { LiquidGlassCard } from "@/components/ui/liquid-weather-glass";
 import Button from '@/components/Button';
-import Sidebar from '@/components/Sidebar';
 import DashboardAuth from '../components/DashboardAuth';
 import { 
   User, 
@@ -38,10 +37,9 @@ export default function SettingsPage() {
 
   return (
     <DashboardAuth>
-      <div className="flex">
-        <Sidebar />
+      <div className="p-4 md:p-8">
         
-        <main className="flex-1 p-8 bg-gray-950">
+        <main className="max-w-7xl mx-auto">
           <div className="max-w-7xl mx-auto">
             {/* Header */}
             <motion.div
@@ -62,7 +60,7 @@ export default function SettingsPage() {
                 animate={{ opacity: 1, x: 0 }}
                 className="lg:col-span-1"
               >
-                <Card>
+                <LiquidGlassCard shadowIntensity="xs" borderRadius="16px" glowIntensity="sm" className="p-6 bg-white/5">
                   <nav className="space-y-1">
                     {tabs.map((tab) => {
                       const Icon = tab.icon;
@@ -82,7 +80,7 @@ export default function SettingsPage() {
                       );
                     })}
                   </nav>
-                </Card>
+                </LiquidGlassCard>
               </motion.div>
 
               {/* Content */}
@@ -92,7 +90,7 @@ export default function SettingsPage() {
                 className="lg:col-span-3"
               >
                 {activeTab === 'profile' && (
-                  <Card>
+                  <LiquidGlassCard shadowIntensity="xs" borderRadius="16px" glowIntensity="sm" className="p-6 bg-white/5">
                     <h2 className="text-2xl font-bold mb-6">Profile Settings</h2>
                     
                     <div className="space-y-6">
@@ -146,11 +144,11 @@ export default function SettingsPage() {
                         </Button>
                       </div>
                     </div>
-                  </Card>
+                  </LiquidGlassCard>
                 )}
 
                 {activeTab === 'integrations' && (
-                  <Card>
+                  <LiquidGlassCard shadowIntensity="xs" borderRadius="16px" glowIntensity="sm" className="p-6 bg-white/5">
                     <h2 className="text-2xl font-bold mb-6">Integrations</h2>
                     
                     <div className="space-y-4">
@@ -187,11 +185,11 @@ export default function SettingsPage() {
                         );
                       })}
                     </div>
-                  </Card>
+                  </LiquidGlassCard>
                 )}
 
                 {activeTab === 'notifications' && (
-                  <Card>
+                  <LiquidGlassCard shadowIntensity="xs" borderRadius="16px" glowIntensity="sm" className="p-6 bg-white/5">
                     <h2 className="text-2xl font-bold mb-6">Notification Preferences</h2>
                     
                     <div className="space-y-6">
@@ -213,11 +211,11 @@ export default function SettingsPage() {
                         </div>
                       ))}
                     </div>
-                  </Card>
+                  </LiquidGlassCard>
                 )}
 
                 {activeTab === 'appearance' && (
-                  <Card>
+                  <LiquidGlassCard shadowIntensity="xs" borderRadius="16px" glowIntensity="sm" className="p-6 bg-white/5">
                     <h2 className="text-2xl font-bold mb-6">Appearance</h2>
                     
                     <div className="space-y-6">
@@ -255,11 +253,11 @@ export default function SettingsPage() {
                         </div>
                       </div>
                     </div>
-                  </Card>
+                  </LiquidGlassCard>
                 )}
 
                 {activeTab === 'billing' && (
-                  <Card>
+                  <LiquidGlassCard shadowIntensity="xs" borderRadius="16px" glowIntensity="sm" className="p-6 bg-white/5">
                     <h2 className="text-2xl font-bold mb-6">Billing & Subscription</h2>
                     
                     <div className="space-y-6">
@@ -310,11 +308,11 @@ export default function SettingsPage() {
                         </div>
                       </div>
                     </div>
-                  </Card>
+                  </LiquidGlassCard>
                 )}
 
                 {activeTab === 'security' && (
-                  <Card>
+                  <LiquidGlassCard shadowIntensity="xs" borderRadius="16px" glowIntensity="sm" className="p-6 bg-white/5">
                     <h2 className="text-2xl font-bold mb-6">Security Settings</h2>
                     
                     <div className="space-y-6">
@@ -369,7 +367,7 @@ export default function SettingsPage() {
                         </div>
                       </div>
                     </div>
-                  </Card>
+                  </LiquidGlassCard>
                 )}
               </motion.div>
             </div>

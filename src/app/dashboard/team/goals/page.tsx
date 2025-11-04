@@ -2,9 +2,8 @@
 
 import { motion } from 'framer-motion';
 import { useState } from 'react';
-import Card from '@/components/Card';
+import { LiquidGlassCard } from "@/components/ui/liquid-weather-glass";
 import Button from '@/components/Button';
-import Sidebar from '@/components/Sidebar';
 import DashboardAuth from '../../components/DashboardAuth';
 import { 
   Target,
@@ -149,10 +148,9 @@ export default function GoalsPage() {
 
   return (
     <DashboardAuth>
-      <div className="flex">
-        <Sidebar />
+      <div className="p-4 md:p-8">
         
-        <main className="flex-1 p-8 bg-gray-950">
+        <main className="max-w-7xl mx-auto">
           <div className="max-w-7xl mx-auto">
             {/* Header */}
             <motion.div
@@ -193,13 +191,13 @@ export default function GoalsPage() {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: index * 0.1 }}
                   >
-                    <Card className="hover:scale-105 transition-transform">
+                    <LiquidGlassCard shadowIntensity="xs" borderRadius="16px" glowIntensity="sm" className="p-6 bg-white/5 hover:scale-105 transition-transform">
                       <div className={`w-12 h-12 rounded-xl bg-${stat.color}-500/10 flex items-center justify-center mb-4`}>
                         <Icon className={`w-6 h-6 text-${stat.color}-500`} />
                       </div>
                       <p className="text-3xl font-bold mb-1">{stat.value}</p>
                       <p className="text-sm text-gray-400">{stat.label}</p>
-                    </Card>
+                    </LiquidGlassCard>
                   </motion.div>
                 );
               })}
@@ -219,7 +217,7 @@ export default function GoalsPage() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.5 + index * 0.1 }}
                 >
-                  <Card hover>
+                  <LiquidGlassCard shadowIntensity="xs" borderRadius="16px" glowIntensity="sm" className="p-6 bg-white/5">
                     {/* Goal Header */}
                     <div className="flex items-start justify-between mb-6">
                       <div className="flex-1">
@@ -304,7 +302,7 @@ export default function GoalsPage() {
                         ))}
                       </div>
                     </div>
-                  </Card>
+                  </LiquidGlassCard>
                 </motion.div>
               ))}
             </motion.div>

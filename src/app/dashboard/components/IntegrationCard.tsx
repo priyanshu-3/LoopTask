@@ -1,6 +1,6 @@
 'use client';
 
-import Card from '@/components/Card';
+import { LiquidGlassCard } from '@/components/ui/liquid-weather-glass';
 import Button from '@/components/Button';
 import { Github, MessageSquare, FileText, Calendar } from 'lucide-react';
 
@@ -35,16 +35,21 @@ export default function IntegrationCard({
   const color = colors[icon];
 
   return (
-    <Card>
+    <LiquidGlassCard 
+      shadowIntensity='xs'
+      borderRadius='16px'
+      glowIntensity='sm'
+      className="p-6 bg-white/5"
+    >
       <div className="flex items-center justify-between mb-4">
         <Icon className={`w-8 h-8 ${color}`} />
         {connected && (
-          <span className="bg-green-600 text-white text-xs px-2 py-1 rounded-full">
+          <span className="bg-green-500/20 backdrop-blur-sm text-green-300 text-xs px-2 py-1 rounded-full border border-green-500/30">
             Connected
           </span>
         )}
       </div>
-      <h3 className="text-lg font-semibold mb-2">{name}</h3>
+      <h3 className="text-lg font-semibold mb-2 text-white">{name}</h3>
       <Button
         variant={connected ? 'secondary' : 'primary'}
         size="sm"
@@ -53,6 +58,6 @@ export default function IntegrationCard({
       >
         {connected ? 'Manage' : 'Connect'}
       </Button>
-    </Card>
+    </LiquidGlassCard>
   );
 }

@@ -2,8 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import Card from '@/components/Card';
-import Sidebar from '@/components/Sidebar';
+import { LiquidGlassCard } from '@/components/ui/liquid-weather-glass';
 import DashboardAuth from '../components/DashboardAuth';
 import { 
   TrendingUp, 
@@ -63,10 +62,8 @@ export default function AnalyticsPage() {
 
   return (
     <DashboardAuth>
-      <div className="flex">
-        <Sidebar />
-        
-        <main className="flex-1 p-8 bg-gray-950">
+      <div className="p-4 md:p-8">
+        <main className="max-w-7xl mx-auto">
           <div className="max-w-7xl mx-auto">
             {/* Header */}
             <motion.div
@@ -131,7 +128,7 @@ export default function AnalyticsPage() {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: index * 0.1 }}
                   >
-                    <Card className="relative overflow-hidden group hover:scale-105 transition-transform">
+                    <LiquidGlassCard shadowIntensity="xs" borderRadius="16px" glowIntensity="sm" className="p-6 bg-white/5 relative overflow-hidden group hover:scale-105 transition-transform">
                       <div className={`absolute inset-0 bg-gradient-to-br ${stat.gradientFrom} to-transparent opacity-0 group-hover:opacity-100 transition-opacity`}></div>
                       
                       <div className="relative z-10">
@@ -148,7 +145,7 @@ export default function AnalyticsPage() {
                         <p className="text-3xl font-bold mb-1">{stat.value}</p>
                         <p className="text-sm text-gray-400">{stat.label}</p>
                       </div>
-                    </Card>
+                    </LiquidGlassCard>
                   </motion.div>
                 );
               })}
@@ -161,13 +158,13 @@ export default function AnalyticsPage() {
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.4 }}
               >
-                <Card>
+                <LiquidGlassCard shadowIntensity="xs" borderRadius="16px" glowIntensity="sm" className="p-6 bg-white/5">
                   <h3 className="text-xl font-semibold mb-4 flex items-center space-x-2">
                     <Target className="w-5 h-5 text-blue-500" />
                     <span>Productivity Trends</span>
                   </h3>
                   <ProductivityChart />
-                </Card>
+                </LiquidGlassCard>
               </motion.div>
 
               <motion.div
@@ -175,13 +172,13 @@ export default function AnalyticsPage() {
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.5 }}
               >
-                <Card>
+                <LiquidGlassCard shadowIntensity="xs" borderRadius="16px" glowIntensity="sm" className="p-6 bg-white/5">
                   <h3 className="text-xl font-semibold mb-4 flex items-center space-x-2">
                     <Zap className="w-5 h-5 text-purple-500" />
                     <span>Weekly Activity</span>
                   </h3>
                   <WeeklyActivity />
-                </Card>
+                </LiquidGlassCard>
               </motion.div>
             </div>
 
@@ -192,13 +189,13 @@ export default function AnalyticsPage() {
               transition={{ delay: 0.6 }}
               className="mb-8"
             >
-              <Card>
+              <LiquidGlassCard shadowIntensity="xs" borderRadius="16px" glowIntensity="sm" className="p-6 bg-white/5">
                 <h3 className="text-xl font-semibold mb-4 flex items-center space-x-2">
                   <Calendar className="w-5 h-5 text-green-500" />
                   <span>Contribution Heatmap</span>
                 </h3>
                 <CommitHeatmap />
-              </Card>
+              </LiquidGlassCard>
             </motion.div>
 
             {/* Language Breakdown */}
@@ -207,10 +204,10 @@ export default function AnalyticsPage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.7 }}
             >
-              <Card>
+              <LiquidGlassCard shadowIntensity="xs" borderRadius="16px" glowIntensity="sm" className="p-6 bg-white/5">
                 <h3 className="text-xl font-semibold mb-4">Language Breakdown</h3>
                 <LanguageBreakdown />
-              </Card>
+              </LiquidGlassCard>
             </motion.div>
           </div>
         </main>

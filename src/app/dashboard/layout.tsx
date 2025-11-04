@@ -16,12 +16,12 @@ export default function DashboardLayout({
       <ToastProvider>
         <WavyBackground 
           containerClassName="min-h-screen relative w-full"
-          className="w-full"
+          className="w-full min-h-screen"
         >
-          <div className="relative z-10 flex min-h-screen">
+          <div className="relative z-10 min-h-screen">
             <ProfessionalSidebar />
-            {/* Add proper left padding for desktop to account for sidebar */}
-            <div className="lg:pl-64 flex-1">
+            {/* Main content area with left padding for sidebar */}
+            <div className="pl-64 w-full overflow-y-auto">
               <CommandPalette />
               {children}
             </div>

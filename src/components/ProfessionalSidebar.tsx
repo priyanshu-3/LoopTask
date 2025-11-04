@@ -17,8 +17,6 @@ import {
   Settings,
   ChevronDown,
   ChevronRight,
-  Menu,
-  X,
   Sparkles,
   GitBranch,
   Calendar,
@@ -99,7 +97,6 @@ const navigation: NavItem[] = [
 export default function ProfessionalSidebar() {
   const pathname = usePathname();
   const [collapsed, setCollapsed] = useState(false);
-  const [mobileOpen, setMobileOpen] = useState(false);
   const [expandedItems, setExpandedItems] = useState<string[]>(['Team']);
   const { unreadCount } = useNotifications();
   const [integrations, setIntegrations] = useState<any>(null);
@@ -160,23 +157,6 @@ export default function ProfessionalSidebar() {
 
     return (
       <div className="flex flex-col h-full">
-        {/* Logo */}
-        <div className="p-6 border-b border-gray-800">
-          <Link href="/dashboard" className="flex items-center space-x-3 group">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-600 to-purple-600 flex items-center justify-center group-hover:scale-110 transition-transform">
-              <Sparkles className="w-6 h-6 text-white" />
-            </div>
-            {!collapsed && (
-              <div>
-                <h1 className="text-xl font-bold bg-gradient-to-r from-blue-400 to-purple-600 bg-clip-text text-transparent">
-                  LoopTask
-                </h1>
-                <p className="text-xs text-gray-500">Developer Platform</p>
-              </div>
-            )}
-          </Link>
-        </div>
-
         {/* Search */}
         {!collapsed && (
           <div className="px-4 py-3">
@@ -284,55 +264,14 @@ export default function ProfessionalSidebar() {
 
   return (
     <>
-      {/* Mobile Menu Button */}
-      <button
-        onClick={() => setMobileOpen(true)}
-        className="lg:hidden fixed top-4 left-4 z-50 p-2 bg-gray-900 border border-gray-800 rounded-lg"
-      >
-        <Menu className="w-6 h-6 text-white" />
-      </button>
-
-      {/* Mobile Sidebar */}
-      <AnimatePresence>
-        {mobileOpen && (
-          <>
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              onClick={() => setMobileOpen(false)}
-              className="lg:hidden fixed inset-0 bg-black/60 backdrop-blur-sm z-40"
-            />
-            <motion.aside
-              initial={{ x: -300 }}
-              animate={{ x: 0 }}
-              exit={{ x: -300 }}
-              transition={{ type: 'spring', damping: 25 }}
-              className="lg:hidden fixed left-0 top-0 bottom-0 w-72 bg-gray-950 border-r border-gray-800 z-50"
-            >
-              <button
-                onClick={() => setMobileOpen(false)}
-                className="absolute top-4 right-4 p-2 hover:bg-gray-800 rounded-lg transition-colors"
-              >
-                <X className="w-5 h-5 text-gray-400" />
-              </button>
-              <SidebarContent />
-            </motion.aside>
-          </>
-        )}
-      </AnimatePresence>
-
-      {/* Desktop Sidebar */}
+      {/* Desktop Sidebar - Always visible */}
       <motion.aside
-        animate={{ width: collapsed ? 80 : 280 }}
+        animate={{ width: collapsed ? 80 : 256 }}
         transition={{ duration: 0.3, ease: 'easeInOut' }}
-        className="hidden lg:block fixed left-0 top-0 bottom-0 bg-gray-950 border-r border-gray-800 z-30"
+        className="fixed left-0 top-0 bottom-0 bg-gray-950 border-r border-gray-800 z-30 overflow-y-auto"
       >
         <SidebarContent />
       </motion.aside>
-
-      {/* Spacer for content */}
-      <div className={`hidden lg:block ${collapsed ? 'w-20' : 'w-[280px]'} flex-shrink-0 transition-all duration-300`} />
     </>
   );
 }

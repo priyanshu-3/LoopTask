@@ -76,10 +76,10 @@ export default function DashboardPage() {
 
             {/* Sync Status Message */}
             {syncMessage && (
-              <div className={`mb-4 p-4 rounded-lg ${
-                syncMessage.includes('✓') ? 'bg-green-500/10 text-green-400' : 
-                syncMessage.includes('Error') || syncMessage.includes('Failed') ? 'bg-red-500/10 text-red-400' :
-                'bg-blue-500/10 text-blue-400'
+              <div className={`mb-4 p-4 rounded-lg backdrop-blur-xl border shadow-lg ${
+                syncMessage.includes('✓') ? 'bg-green-500/10 text-green-300 border-green-500/30' : 
+                syncMessage.includes('Error') || syncMessage.includes('Failed') ? 'bg-red-500/10 text-red-300 border-red-500/30' :
+                'bg-blue-500/10 text-blue-300 border-blue-500/30'
               }`}>
                 {syncMessage}
               </div>
@@ -93,7 +93,7 @@ export default function DashboardPage() {
             {/* Integrations Grid */}
             <div className="mb-8">
               <div className="flex items-center justify-between mb-4">
-                <h2 className="text-xl font-semibold">Integrations</h2>
+                <h2 className="text-xl font-semibold text-white">Integrations</h2>
                 {integrations?.github_connected && (
                   <Button
                     variant="outline"
@@ -142,7 +142,7 @@ export default function DashboardPage() {
           {/* Main Content Grid */}
           <div className="grid lg:grid-cols-2 gap-8">
             <div>
-              <h2 className="text-xl font-semibold mb-4">Recent Activity</h2>
+              <h2 className="text-xl font-semibold mb-4 text-white">Recent Activity</h2>
               <ActivityFeed 
                 selectedSource={selectedSource}
                 onSourceChange={setSelectedSource}
@@ -151,7 +151,7 @@ export default function DashboardPage() {
             </div>
             
             <div>
-              <h2 className="text-xl font-semibold mb-4">Weekly Analytics</h2>
+              <h2 className="text-xl font-semibold mb-4 text-white">Weekly Analytics</h2>
               <AnalyticsChart />
             </div>
           </div>

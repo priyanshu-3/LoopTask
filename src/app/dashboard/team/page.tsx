@@ -2,9 +2,8 @@
 
 import { motion } from 'framer-motion';
 import { useState } from 'react';
-import Card from '@/components/Card';
+import { LiquidGlassCard } from "@/components/ui/liquid-weather-glass";
 import Button from '@/components/Button';
-import Sidebar from '@/components/Sidebar';
 import DashboardAuth from '../components/DashboardAuth';
 import { 
   Users, 
@@ -86,10 +85,9 @@ export default function TeamPage() {
 
   return (
     <DashboardAuth>
-      <div className="flex">
-        <Sidebar />
+      <div className="p-4 md:p-8">
         
-        <main className="flex-1 p-8 bg-gray-950">
+        <main className="max-w-7xl mx-auto">
           <div className="max-w-7xl mx-auto">
             {/* Header */}
             <motion.div
@@ -130,7 +128,7 @@ export default function TeamPage() {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: index * 0.1 }}
                   >
-                    <Card className="relative overflow-hidden group hover:scale-105 transition-transform">
+                    <LiquidGlassCard shadowIntensity="xs" borderRadius="16px" glowIntensity="sm" className="p-6 bg-white/5 relative overflow-hidden group hover:scale-105 transition-transform">
                       <div className="flex items-center justify-between mb-4">
                         <div className={`w-12 h-12 rounded-xl ${stat.bgColor} flex items-center justify-center`}>
                           <Icon className={`w-6 h-6 ${stat.iconColor}`} />
@@ -138,7 +136,7 @@ export default function TeamPage() {
                       </div>
                       <p className="text-3xl font-bold mb-1">{stat.value}</p>
                       <p className="text-sm text-gray-400">{stat.label}</p>
-                    </Card>
+                    </LiquidGlassCard>
                   </motion.div>
                 );
               })}
@@ -160,7 +158,7 @@ export default function TeamPage() {
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 0.5 + index * 0.1 }}
                   >
-                    <Card hover className="group">
+                    <LiquidGlassCard shadowIntensity="xs" borderRadius="16px" glowIntensity="sm" className="p-6 bg-white/5 group">
                       <div className="flex items-start justify-between mb-4">
                         <div className="flex items-center space-x-4">
                           {/* Avatar */}
@@ -207,7 +205,7 @@ export default function TeamPage() {
                           <p className="text-xs text-gray-500">Score</p>
                         </div>
                       </div>
-                    </Card>
+                    </LiquidGlassCard>
                   </motion.div>
                 ))}
               </div>
@@ -221,7 +219,7 @@ export default function TeamPage() {
               className="mt-8"
             >
               <h2 className="text-2xl font-bold mb-6">Recent Team Activity</h2>
-              <Card>
+              <LiquidGlassCard shadowIntensity="xs" borderRadius="16px" glowIntensity="sm" className="p-6 bg-white/5">
                 <div className="space-y-4">
                   {[
                     { user: 'Ayush Kumar', action: 'merged PR #234', time: '2 hours ago', color: 'blue' },
@@ -240,7 +238,7 @@ export default function TeamPage() {
                     </div>
                   ))}
                 </div>
-              </Card>
+              </LiquidGlassCard>
             </motion.div>
           </div>
         </main>

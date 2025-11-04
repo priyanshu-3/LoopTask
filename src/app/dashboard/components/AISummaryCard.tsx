@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useSession } from 'next-auth/react';
-import Card from '@/components/Card';
+import { LiquidGlassCard } from '@/components/ui/liquid-weather-glass';
 import Button from '@/components/Button';
 import Skeleton from '@/components/Skeleton';
 import { 
@@ -163,47 +163,52 @@ export default function AISummaryCard() {
   };
 
   return (
-    <Card className="bg-gradient-to-br from-blue-900/20 to-purple-900/20 border-blue-500/30 relative overflow-hidden">
+    <LiquidGlassCard 
+      shadowIntensity='sm'
+      borderRadius='16px'
+      glowIntensity='md'
+      className="p-6 bg-white/5 relative overflow-hidden"
+    >
       {/* Animated background gradient */}
-      <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 via-purple-500/5 to-pink-500/5 animate-pulse"></div>
+      <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 via-purple-500/10 to-pink-500/10 animate-pulse"></div>
       
       <div className="relative z-10">
         {/* Header with date range selector */}
         <div className="flex items-start justify-between mb-4 flex-wrap gap-3">
           <div className="flex items-center space-x-2">
             <Sparkles className="w-6 h-6 text-blue-400 animate-pulse" />
-            <h3 className="text-xl font-semibold">AI Summary</h3>
+            <h3 className="text-xl font-semibold text-white">AI Summary</h3>
           </div>
           
           <div className="flex items-center space-x-2 flex-wrap gap-2">
             {/* Date Range Selector */}
-            <div className="flex items-center space-x-1 bg-gray-800/50 rounded-lg p-1">
+            <div className="flex items-center space-x-1 bg-white/5 backdrop-blur-sm rounded-lg p-1 border border-white/10">
               <button
                 onClick={() => setDateRange('today')}
-                className={`px-3 py-1 rounded text-sm transition-colors ${
+                className={`px-3 py-1 rounded text-sm transition-all ${
                   dateRange === 'today' 
-                    ? 'bg-blue-500 text-white' 
-                    : 'text-gray-400 hover:text-white'
+                    ? 'bg-blue-500 text-white shadow-lg' 
+                    : 'text-gray-300 hover:text-white hover:bg-white/10'
                 }`}
               >
                 Today
               </button>
               <button
                 onClick={() => setDateRange('week')}
-                className={`px-3 py-1 rounded text-sm transition-colors ${
+                className={`px-3 py-1 rounded text-sm transition-all ${
                   dateRange === 'week' 
-                    ? 'bg-blue-500 text-white' 
-                    : 'text-gray-400 hover:text-white'
+                    ? 'bg-blue-500 text-white shadow-lg' 
+                    : 'text-gray-300 hover:text-white hover:bg-white/10'
                 }`}
               >
                 Week
               </button>
               <button
                 onClick={() => setDateRange('month')}
-                className={`px-3 py-1 rounded text-sm transition-colors ${
+                className={`px-3 py-1 rounded text-sm transition-all ${
                   dateRange === 'month' 
-                    ? 'bg-blue-500 text-white' 
-                    : 'text-gray-400 hover:text-white'
+                    ? 'bg-blue-500 text-white shadow-lg' 
+                    : 'text-gray-300 hover:text-white hover:bg-white/10'
                 }`}
               >
                 Month
@@ -238,8 +243,8 @@ export default function AISummaryCard() {
           </div>
         ) : error ? (
           <div className="text-center py-8">
-            <div className="bg-red-500/10 border border-red-500/30 rounded-lg p-4 mb-4">
-              <p className="text-red-400 text-sm">{error}</p>
+            <div className="bg-red-500/10 backdrop-blur-sm border border-red-500/30 rounded-lg p-4 mb-4">
+              <p className="text-red-300 text-sm">{error}</p>
             </div>
             <div className="flex items-center justify-center space-x-3">
               {error.includes('No activity data') && (
@@ -377,9 +382,9 @@ export default function AISummaryCard() {
           </>
         ) : (
           <div className="text-center py-8">
-            <Sparkles className="w-12 h-12 text-gray-600 mx-auto mb-3" />
-            <p className="text-gray-400 mb-2">No summary available yet</p>
-            <p className="text-sm text-gray-500 mb-4">
+            <Sparkles className="w-12 h-12 text-gray-400 mx-auto mb-3" />
+            <p className="text-gray-200 mb-2 text-lg font-medium">No summary available yet</p>
+            <p className="text-sm text-gray-300 mb-4">
               Connect integrations and sync your data to generate AI-powered insights
             </p>
             <div className="flex items-center justify-center space-x-3">
@@ -398,11 +403,11 @@ export default function AISummaryCard() {
         )}
 
         {/* Footer */}
-        <div className="flex items-center justify-between pt-4 border-t border-gray-700 text-xs text-gray-500">
+        <div className="flex items-center justify-between pt-4 border-t border-white/10 text-xs text-gray-400">
           <span>Powered by AI</span>
           <span>{new Date().toLocaleDateString()}</span>
         </div>
       </div>
-    </Card>
+    </LiquidGlassCard>
   );
 }
