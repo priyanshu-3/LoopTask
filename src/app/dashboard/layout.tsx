@@ -21,7 +21,7 @@ export default function DashboardLayout({
           <div className="relative z-10 min-h-screen">
             <ProfessionalSidebar />
             {/* Main content area with left padding for sidebar */}
-            <div className="pl-64 w-full overflow-y-auto">
+            <div className="pl-20 xl:pl-64 w-full overflow-y-auto transition-all duration-300">
               <CommandPalette />
               {children}
             </div>

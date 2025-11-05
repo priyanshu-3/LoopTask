@@ -96,19 +96,86 @@ const navigation: NavItem[] = [
 
 export default function ProfessionalSidebar() {
   const pathname = usePathname();
-  const [collapsed, setCollapsed] = useState(false);
+  const [collapsed, setCollapsed] = useState(() => {
+    // Initialize based on screen size on mount
+    if (typeof window !== 'undefined') {
+      return window.innerWidth < 1280;
+    }
+    return false;
+  });
   const [expandedItems, setExpandedItems] = useState<string[]>(['Team']);
+  const [userToggled, setUserToggled] = useState(false);
   const { unreadCount } = useNotifications();
   const [integrations, setIntegrations] = useState<any>(null);
 
-  // Fetch integrations status
+  // Auto-collapse sidebar on smaller screens (only if user hasn't manually toggled)
+  useEffect(() => {
+    let resizeTimer: NodeJS.Timeout;
+    
+    const checkScreenSize = () => {
+      // Clear any pending resize checks
+      clearTimeout(resizeTimer);
+      
+      // Debounce resize events
+      resizeTimer = setTimeout(() => {
+        const width = window.innerWidth;
+        const isSmallScreen = width < 1280;
+        
+        setCollapsed((prevCollapsed) => {
+          // If user hasn't manually toggled, auto-collapse/expand based on screen size
+          if (!userToggled) {
+            return isSmallScreen;
+          } else {
+            // If user has manually toggled, only force collapse on mobile (< 1024px)
+            // On larger screens, respect user's manual preference
+            if (width < 1024) {
+              return true;
+            } else if (width >= 1280 && prevCollapsed) {
+              // Allow expansion on large screens even if user toggled
+              // This provides better UX when resizing from small to large
+              setUserToggled(false);
+              return false;
+            }
+            return prevCollapsed;
+          }
+        });
+      }, 150);
+    };
+
+    // Listen for resize events
+    window.addEventListener('resize', checkScreenSize);
+    
+    return () => {
+      clearTimeout(resizeTimer);
+      window.removeEventListener('resize', checkScreenSize);
+    };
+  }, [userToggled]);
+
+  // Fetch integrations status with caching
   useEffect(() => {
     const fetchIntegrations = async () => {
       try {
+        // Check cache first
+        const cacheKey = '/api/integrations';
+        const cached = typeof window !== 'undefined' && (window as any).__integrationsCache;
+        
+        if (cached && Date.now() - cached.timestamp < 30000) {
+          setIntegrations(cached.data);
+          return;
+        }
+        
         const res = await fetch('/api/integrations');
         if (res.ok) {
           const data = await res.json();
           setIntegrations(data);
+          
+          // Cache the result
+          if (typeof window !== 'undefined') {
+            (window as any).__integrationsCache = {
+              data,
+              timestamp: Date.now(),
+            };
+          }
         }
       } catch (err) {
         console.error('Error fetching integrations:', err);
@@ -159,8 +226,20 @@ export default function ProfessionalSidebar() {
       <div className="flex flex-col h-full">
         {/* Search */}
         {!collapsed && (
-          <div className="px-4 py-3">
-            <button className="w-full flex items-center space-x-2 px-3 py-2 bg-gray-800/50 hover:bg-gray-800 border border-gray-700 rounded-lg transition-colors text-sm text-gray-400 group">
+          <div className="px-4 pt-4 pb-2">
+            <button 
+              onClick={() => {
+                // Trigger Command Palette via custom event
+                window.dispatchEvent(new CustomEvent('openCommandPalette'));
+              }}
+              onKeyDown={(e) => {
+                if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+                  e.preventDefault();
+                  window.dispatchEvent(new CustomEvent('openCommandPalette'));
+                }
+              }}
+              className="w-full flex items-center space-x-2 px-3 py-2 bg-gray-800/50 hover:bg-gray-800 border border-gray-700 rounded-lg transition-colors text-sm text-gray-400 group"
+            >
               <Search className="w-4 h-4" />
               <span className="flex-1 text-left">Search...</span>
               <kbd className="px-1.5 py-0.5 bg-gray-900 border border-gray-700 rounded text-xs">
@@ -245,7 +324,10 @@ export default function ProfessionalSidebar() {
         {/* Collapse Toggle */}
         <div className="p-4 border-t border-gray-800">
           <button
-            onClick={() => setCollapsed(!collapsed)}
+            onClick={() => {
+              setUserToggled(true);
+              setCollapsed(!collapsed);
+            }}
             className="w-full flex items-center justify-center space-x-2 px-3 py-2 bg-gray-800 hover:bg-gray-700 rounded-lg transition-colors text-sm text-gray-400"
           >
             {collapsed ? (

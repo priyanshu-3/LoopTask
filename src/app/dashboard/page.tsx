@@ -23,10 +23,26 @@ export default function DashboardPage() {
 
   const fetchIntegrations = async () => {
     try {
+      // Check cache first
+      const cached = typeof window !== 'undefined' && (window as any).__integrationsCache;
+      
+      if (cached && Date.now() - cached.timestamp < 30000) {
+        setIntegrations(cached.data);
+        return;
+      }
+      
       const response = await fetch('/api/integrations');
       if (response.ok) {
         const data = await response.json();
         setIntegrations(data);
+        
+        // Cache the result for sidebar and other components
+        if (typeof window !== 'undefined') {
+          (window as any).__integrationsCache = {
+            data,
+            timestamp: Date.now(),
+          };
+        }
       }
     } catch (error) {
       console.error('Error fetching integrations:', error);

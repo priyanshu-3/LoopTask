@@ -10,6 +10,7 @@ import { Check, Star } from "lucide-react";
 import Link from "next/link";
 import { useState, useRef, useEffect } from "react";
 import dynamic from "next/dynamic";
+import { BuyNowButton } from "@/components/ui/buy-now-button";
 
 const NumberFlow = dynamic(
   () => import("@number-flow/react").then((mod: any) => ({ default: mod.NumberFlow || mod.default || mod })),
@@ -21,8 +22,8 @@ const NumberFlow = dynamic(
 interface PricingPlan {
   name: string;
   price: string;
-  yearlyPrice: string;
-  period: string;
+  yearlyPrice?: string;
+  period?: string;
   features: string[];
   description: string;
   buttonText: string;
@@ -167,7 +168,7 @@ export function Pricing({
                   {isMounted && NumberFlow ? (
                     <NumberFlow
                       value={
-                        isMonthly ? Number(plan.price) : Number(plan.yearlyPrice)
+                        isMonthly || !plan.yearlyPrice ? Number(plan.price) : Number(plan.yearlyPrice)
                       }
                       format={{
                         style: "currency",
@@ -184,10 +185,10 @@ export function Pricing({
                       className="font-variant-numeric: tabular-nums"
                     />
                   ) : (
-                    `$${isMonthly ? plan.price : plan.yearlyPrice}`
+                    `$${isMonthly || !plan.yearlyPrice ? plan.price : plan.yearlyPrice}`
                   )}
                 </span>
-                {plan.period !== "Next 3 months" && (
+                {plan.period && plan.period !== "Next 3 months" && (
                   <span className="text-sm font-semibold leading-6 tracking-wide text-gray-400">
                     / {plan.period}
                   </span>
@@ -209,21 +210,13 @@ export function Pricing({
 
               <hr className="w-full my-4 border-gray-700" />
 
-              <Link
-                href={plan.href}
-                className={cn(
-                  buttonVariants({
-                    variant: "outline",
-                  }),
-                  "group relative w-full gap-2 overflow-hidden text-lg font-semibold tracking-tighter mt-auto",
-                  "transform-gpu ring-offset-current transition-all duration-300 ease-out",
-                  plan.isPopular || plan.buttonText !== "Get Started"
-                    ? "bg-white hover:bg-gray-100 text-black border-white"
-                    : "bg-gray-700 hover:bg-gray-600 text-white border-gray-600"
-                )}
-              >
-                {plan.buttonText}
-              </Link>
+              <div className="flex justify-center mt-auto">
+                <BuyNowButton
+                  price={isMonthly || !plan.yearlyPrice ? `$${plan.price}` : `$${plan.yearlyPrice}`}
+                  href={plan.href}
+                  className="w-full max-w-[120px]"
+                />
+              </div>
 
               <p className="mt-6 text-xs leading-5 text-gray-400">
                 {plan.description}

@@ -148,6 +148,14 @@ export default function CommandPalette() {
     return () => document.removeEventListener('keydown', handleKeyDown);
   }, [handleKeyDown]);
 
+  useEffect(() => {
+    const handleOpenPalette = () => {
+      setIsOpen(true);
+    };
+    window.addEventListener('openCommandPalette', handleOpenPalette);
+    return () => window.removeEventListener('openCommandPalette', handleOpenPalette);
+  }, []);
+
   const executeCommand = (cmd: Command) => {
     cmd.action();
     setIsOpen(false);
@@ -156,18 +164,7 @@ export default function CommandPalette() {
 
   return (
     <>
-      {/* Trigger Button */}
-      <button
-        onClick={() => setIsOpen(true)}
-        className="hidden md:flex items-center space-x-2 px-3 py-1.5 bg-gray-800/50 hover:bg-gray-800 border border-gray-700 rounded-lg transition-colors text-sm text-gray-400"
-      >
-        <Search className="w-4 h-4" />
-        <span>Search...</span>
-        <kbd className="px-2 py-0.5 bg-gray-900 border border-gray-700 rounded text-xs">
-          <Command className="w-3 h-3 inline" />K
-        </kbd>
-      </button>
-
+      {/* Trigger Button - Hidden (use sidebar search or ⌘K keyboard shortcut) */}
       {/* Command Palette Modal */}
       <AnimatePresence>
         {isOpen && (

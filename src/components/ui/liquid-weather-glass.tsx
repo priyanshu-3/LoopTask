@@ -36,7 +36,7 @@ export const LiquidGlassCard = ({
   ...props
 }: LiquidGlassCardProps) => {
   const [isExpanded, setIsExpanded] = useState(false);
-  const [filterId] = useState(() => `glass-blur-${Math.random().toString(36).substr(2, 9)}`);
+  const [filterId] = useState(() => `glass-blur-${Math.random().toString(36).substring(2, 11)}`);
 
   const handleToggleExpansion = (e: {
     target: { closest: (arg0: string) => any };
